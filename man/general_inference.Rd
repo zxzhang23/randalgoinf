@@ -27,7 +27,11 @@ general_inference(
 \item{alpha}{Significance level for confidence intervals (default 0.10 for 90\% CI)}
 }
 \value{
-List containing point estimate and confidence interval
+List containing:
+\item{method}{The inference method used}
+\item{point_estimate}{Point estimate of the target parameter}
+\item{confidence_interval}{Confidence interval as a vector of length 2}
+\item{coverage_probability}{Nominal coverage probability (1 - alpha)}
 }
 \description{
 Performs sub-randomization, multi-run plug-in, and multi-run aggregation inference
@@ -40,7 +44,8 @@ Performs sub-randomization, multi-run plug-in, and multi-run aggregation inferen
 set.seed(123)
 n <- 1000; p <- 50
 X <- matrix(rnorm(n * p), n, p)
-y <- X \%*\% rnorm(p) + rnorm(n, sd = 0.1)
+beta <- runif(p, 0, 1)
+y <- X \%*\% beta + rnorm(n, sd = 0.1)
 c_vec <- c(1, 1, 1, rep(0, p-3))  # Linear combination of first 3 coordinates
 
 # Calculate true target: OLS solution with full data

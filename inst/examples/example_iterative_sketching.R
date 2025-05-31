@@ -15,7 +15,7 @@ c_vec <- rep(1, p)  # Linear combination vector (sum of all coefficients)
 
 # Generate data
 X <- matrix(rnorm(n * p), n, p)
-true_beta <- rnorm(p)
+true_beta <- runif(p, 0, 1)
 y <- X %*% true_beta + rnorm(n, sd = 0.1)
 
 # Calculate OLS solution and true target

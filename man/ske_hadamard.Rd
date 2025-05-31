@@ -33,8 +33,8 @@ least squares problem.
 set.seed(123)
 n <- 200; p <- 5; m <- 50
 X <- matrix(rnorm(n * p), n, p)
-true_beta <- c(1, -0.5, 0.3, 0.8, -0.2)
-y <- X \%*\% true_beta + rnorm(n, sd = 0.1)
+beta <- runif(p, 0, 1)
+y <- X \%*\% beta + rnorm(n, sd = 0.1)
 c_vec <- rep(1, p)
 
 # Calculate true target: OLS solution with full data

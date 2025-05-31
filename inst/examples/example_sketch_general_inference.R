@@ -14,7 +14,7 @@ K <- 50    # Number of reduced-size estimates
 
 # Generate data
 X <- matrix(rnorm(n * p), n, p)
-true_beta <- c(1, -0.5, 0.3, 0.8, -0.2, 0.1, -0.3, 0.6, -0.1, 0.4)
+true_beta <- runif(p, 0, 1)
 y <- X %*% true_beta + rnorm(n, sd = 0.2)
 
 # Linear combination of interest (e.g., sum of first 3 coefficients)

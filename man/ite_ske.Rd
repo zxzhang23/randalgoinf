@@ -36,8 +36,8 @@ useful for improving accuracy through multiple iterations.
 set.seed(123)
 n <- 5000; p <- 10; m <- 500
 X <- matrix(rnorm(n * p), n, p)
-true_beta <- rnorm(p)
-y <- X \%*\% true_beta + rnorm(n, sd = 0.1)
+beta <- runif(p, 0, 1)
+y <- X \%*\% beta + rnorm(n, sd = 0.1)
 c_vec <- rep(1, p)
 
 # Calculate true target: OLS solution with full data

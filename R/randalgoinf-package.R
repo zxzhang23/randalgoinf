@@ -73,7 +73,8 @@
 #' set.seed(123)
 #' n <- 100; p <- 5; m <- 30; b <- 15
 #' X <- matrix(rnorm(n * p), n, p)
-#' y <- X \%*\% c(1, -0.5, 0.3, 0.8, -0.2) + rnorm(n, sd = 0.1)
+#' beta <- runif(p, 0, 1)
+#' y <- X \%*\% beta + rnorm(n, sd = 0.1)
 #' c_vec <- rep(1, p)  # sum of coordinates of solution
 #'
 #' # Calculate true target: OLS solution with full data
@@ -135,31 +136,37 @@
 #' true_target_param <- theta_true[5]  # Target: last coordinate
 #' data_gen <- randalgoinf:::create_logistic_generator(theta_true)
 #'
-#' # Set learning rate schedules  
-#' n_main <- 1000; n_sub <- 500
-#' lr_main <- 0.5 * (1:n_main)^(-0.505)
-#' lr_sub <- 0.5 * (1:n_sub)^(-0.505)
+#' # Algorithm parameters
+#' m <- 10000  # Large sample size
+#' b <- 400    # Small sample size
+#' lr_main <- 0.5 * (1:m)^(-0.505)
+#' lr_sub <- 0.5 * (1:b)^(-0.505)
 #'
 #' # Get main estimate (large sample size)
-#' main_result <- PRA_logistic(lr_main, n_main, data_gen, 5, average = TRUE)
+#' main_result <- PRA_logistic(lr_main, m, data_gen, 5, average = TRUE)
 #' theta_m_pra <- main_result$averaged_weights[5]  # Last coordinate
 #'
 #' # Get reduced-size estimates 
 #' theta_b_list_pra <- list()
-#' for (k in 1:30) {
-#'   sub_result <- PRA_logistic(lr_sub, n_sub, data_gen, 5, average = TRUE)
+#' K <- 50  # Number of reduced-size estimates
+#' for (k in 1:K) {
+#'   sub_result <- PRA_logistic(lr_sub, b, data_gen, 5, average = TRUE)
 #'   theta_b_list_pra[[k]] <- sub_result$averaged_weights[5]
 #' }
 #'
+#' # Convergence parameters for PRA (sqrt rate)
+#' tau_m <- sqrt(m)
+#' tau_b <- sqrt(b)
+#'
 #' # Apply general inference (sqrt rate for PRA)
 #' pra_inference <- general_inference(theta_m_pra, theta_b_list_pra, 
-#'                                   sqrt(n_main), sqrt(n_sub), method = "subrand")
+#'                                   tau_m, tau_b, method = "subrand")
 #' cat("True target (population param):", true_target_param, "\\n")
 #' cat("PRA 90\\% CI:", round(pra_inference$confidence_interval, 3), "\\n")
 #'
 #' # Multi-run plug-in inference for PRA
 #' pra_plugin <- general_inference(theta_m_pra, theta_b_list_pra, 
-#'                                sqrt(n_main), sqrt(n_sub), method = "plugin")
+#'                                tau_m, tau_b, method = "plugin")
 #' cat("PRA Multi-run plug-in 90\\% CI:", round(pra_plugin$confidence_interval, 3), "\\n")
 #' }
 #'

@@ -10,7 +10,11 @@
 #' @param tau_b Convergence speed parameter for small size solutions
 #' @param method Inference method: "subrand", "plugin", or "multirun"
 #' @param alpha Significance level for confidence intervals (default 0.10 for 90% CI)
-#' @return List containing point estimate and confidence interval
+#' @return List containing:
+#'   \item{method}{The inference method used}
+#'   \item{point_estimate}{Point estimate of the target parameter}
+#'   \item{confidence_interval}{Confidence interval as a vector of length 2}
+#'   \item{coverage_probability}{Nominal coverage probability (1 - alpha)}
 #' @family inference
 #' @seealso \code{\link{inf_pivotal}}, \code{\link{inf_pivotal_ihs}}
 #' @export
@@ -20,7 +24,8 @@
 #' set.seed(123)
 #' n <- 1000; p <- 50
 #' X <- matrix(rnorm(n * p), n, p)
-#' y <- X %*% rnorm(p) + rnorm(n, sd = 0.1)
+#' beta <- runif(p, 0, 1)
+#' y <- X %*% beta + rnorm(n, sd = 0.1)
 #' c_vec <- c(1, 1, 1, rep(0, p-3))  # Linear combination of first 3 coordinates
 #' 
 #' # Calculate true target: OLS solution with full data
@@ -156,10 +161,6 @@ general_inference <- function(theta_m, theta_b_list, tau_m, tau_b,
     )
   }
   
-  result$alpha <- alpha
-  result$K <- K
-  result$tau_m <- tau_m
-  result$tau_b <- tau_b
   result$coverage_probability <- 1 - alpha
   
   return(result)

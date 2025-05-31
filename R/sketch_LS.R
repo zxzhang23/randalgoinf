@@ -21,7 +21,8 @@
 #' set.seed(123)
 #' n <- 100; p <- 5; m <- 30
 #' X <- matrix(rnorm(n * p), n, p)
-#' y <- X %*% c(1, -0.5, 0.3, 0.8, -0.2) + rnorm(n, sd = 0.1)
+#' beta <- runif(p, 0, 1)
+#' y <- X %*% beta + rnorm(n, sd = 0.1)
 #' c_vec <- rep(1, p)  # sum of coordinates of solution
 #'
 #' # Calculate true target: OLS solution with full data
@@ -89,7 +90,8 @@ ske_iid <- function(X, y, m, c, type = 1, partial = 0) {
 #' set.seed(123)
 #' n <- 100; p <- 5; m <- 30
 #' X <- matrix(rnorm(n * p), n, p)
-#' y <- X %*% c(1, -0.5, 0.3, 0.8, -0.2) + rnorm(n, sd = 0.1)
+#' beta <- runif(p, 0, 1)
+#' y <- X %*% beta + rnorm(n, sd = 0.1)
 #' c_vec <- rep(1, p)
 #'
 #' # Calculate true target: OLS solution with full data
@@ -152,8 +154,8 @@ ske_haar <- function(X, y, m, c, partial = 0) {
 #' set.seed(123)
 #' n <- 200; p <- 5; m <- 50
 #' X <- matrix(rnorm(n * p), n, p)
-#' true_beta <- c(1, -0.5, 0.3, 0.8, -0.2)
-#' y <- X %*% true_beta + rnorm(n, sd = 0.1)
+#' beta <- runif(p, 0, 1)
+#' y <- X %*% beta + rnorm(n, sd = 0.1)
 #' c_vec <- rep(1, p)
 #'
 #' # Calculate true target: OLS solution with full data
@@ -239,8 +241,8 @@ ske_hadamard <- function(X, y, m, c, partial = 0) {
 #' set.seed(123)
 #' n <- 5000; p <- 10; m <- 500
 #' X <- matrix(rnorm(n * p), n, p)
-#' true_beta <- rnorm(p)
-#' y <- X %*% true_beta + rnorm(n, sd = 0.1)
+#' beta <- runif(p, 0, 1)
+#' y <- X %*% beta + rnorm(n, sd = 0.1)
 #' c_vec <- rep(1, p)
 #'
 #' # Calculate true target: OLS solution with full data

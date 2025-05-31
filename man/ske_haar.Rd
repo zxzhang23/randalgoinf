@@ -28,14 +28,21 @@ Performs Haar distributed orthogonal sketching for least squares problem.
 }
 \examples{
 # Generate sample data
+# TARGET: True OLS solution obtained from full data
 set.seed(123)
 n <- 100; p <- 5; m <- 30
 X <- matrix(rnorm(n * p), n, p)
-y <- X \%*\% c(1, -0.5, 0.3, 0.8, -0.2) + rnorm(n, sd = 0.1)
+beta <- runif(p, 0, 1)
+y <- X \%*\% beta + rnorm(n, sd = 0.1)
 c_vec <- rep(1, p)
+
+# Calculate true target: OLS solution with full data
+ols_beta <- qr.solve(X, y)
+true_target <- sum(c_vec * ols_beta)
 
 # Perform Haar sketching
 result <- ske_haar(X, y, m, c_vec)
-print(result$sketched_ls_sol)
+cat("True target (OLS):", round(true_target, 3), "\\n")
+cat("Haar estimate:", round(result$linear_combination, 3), "\\n")
 
 }
