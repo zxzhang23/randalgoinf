@@ -1,0 +1,35 @@
+Package: randalgoinf
+Type: Package
+Title: Statistical Inference via Randomized Algorithms
+Version: 0.1.0
+Authors@R: person("Zhixiang", "Zhang", email = "zzxiang710@gmail.com", role = c("aut", "cre"))
+Description: This package implements various statistical inference methods for 
+    the deterministic target of a sequence of randomized algorithms as developed 
+    in Zhang et al. (2023). These general methods---including sub-randomization, 
+    multi-run plug-in, and multi-run aggregation---require the multiple runs of 
+    the randomized algorithm. The framework's applicability is demonstrated 
+    through inference for least squares parameters via sketch-and-solve, partial 
+    sketching, and iterative Hessian sketching. These methods are also applied 
+    in stochastic optimization, including SGD with Polyak-Ruppert averaging and 
+    momentum-based approaches. The package also incorporates classical pivotal 
+    inference methods, supported by newly developed theoretical results for 
+    sketched least squares estimators.
+License: GPL-3
+URL: https://github.com/zxzhang23/randalgoinf
+Encoding: UTF-8
+RoxygenNote: 7.3.2
+Depends: 
+    R (>= 3.5.0)
+Imports:
+    mvtnorm,
+    phangorn,
+    data.table
+Suggests:
+    ggplot2,
+    tidyr,
+    knitr,
+    rmarkdown,
+    testthat (>= 3.0.0)
+VignetteBuilder: knitr
+Config/testthat/edition: 3
+

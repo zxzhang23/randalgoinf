@@ -1,0 +1,11 @@
+^.*\.Rproj$
+^\.Rproj\.user$
+^LICENSE\.md$
+^README\.Rmd$
+^\.Rhistory$
+^\.DS_Store$
+^\.git$
+^\.gitignore$
+^test_.*\.csv$
+^.*\.tmp$
+^.*\.log$
