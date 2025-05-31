@@ -101,8 +101,5 @@ cat("  Contains true value:",
     (result_plugin$confidence_interval[1] <= true_target) & 
     (true_target <= result_plugin$confidence_interval[2]), "\n\n")
 
-cat("=== Summary ===\n")
-cat("Both sub-randomization and multi-run plug-in methods provide\n")
-cat("confidence intervals for the target parameter. The choice between\n")
-cat("methods depends on the specific algorithm and convergence properties.\n")
+
 
